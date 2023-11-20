@@ -24,6 +24,8 @@ export class LoginComponent {
   userForm = this.fb.group({
     ident: ['', Validators.required],
     pass: ['', Validators.required],  });
+
+
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -34,7 +36,39 @@ export class LoginComponent {
 
   }
 
+  register() {
+    this.loading = true;
 
+    this.sub = this.apiService.postRegister(
+      this.userForm.value.ident,
+      this.userForm.value.pass).subscribe({
+        next: (response: any) => {
+
+          if (response?.success) {
+            // GOOD 
+            this.router.navigate(['/home']);
+
+          } else {
+
+            // ERREUR
+
+
+          }
+
+          this.loading = false;
+
+
+        }, error: (msg: any) => {
+          this.loading = false;
+
+          console.error(`Error: ${msg.status} ${msg.statusText}`);
+          console.error('Erreur de connexion');
+        }
+      });
+
+
+
+  }
   login() {
     this.loading = true;
 

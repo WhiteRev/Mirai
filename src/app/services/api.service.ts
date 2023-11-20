@@ -14,7 +14,12 @@ export class ApiService {
 
   public postLogin(email?:string | null, password?: string| null) {
 
-    return this.http.post(this.PATH + '/user/', { email, password });
+    return this.http.post(this.PATH + '/user/login/', { email, password });
+      
+  }
+  public postRegister(email?:string | null, password?: string| null) {
+
+    return this.http.post(this.PATH + '/user/register/', { email, password });
       
   }
 
